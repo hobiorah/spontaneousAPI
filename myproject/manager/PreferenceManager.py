@@ -43,6 +43,11 @@ def createPreference(request):
 
 	response_data = newPreference.getResponseData()
 	response_data["existing"] = True
+	response_data["first_name"] = user.first_name
+	response_data["last_name"] = user.last_name
+	response_data["email"] = user.email
+	response_data["success"] = True
+
 
 	return HttpResponse(json.dumps(response_data), content_type="application/json")
 
@@ -58,6 +63,7 @@ def getPreferences(request, user_email):
 		
 		
 		response_data["preferences"] = prefs
+		response_data["success"] = True
 
 		if len(prefs)>0:
 			#user = users[0]
