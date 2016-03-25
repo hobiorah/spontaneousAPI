@@ -26,7 +26,7 @@ def createPreference(request):
 		newPreference = existing[0]
 		errorMessage = "Error! Preference with this email already exists."
 
-		return HttpResponse(json.dumps({'success': False, "error":errorMessage, 'existing':true}), content_type="application/json")
+		return HttpResponse(json.dumps({'success': False, "error":errorMessage, 'existing':True}), content_type="application/json")
 
 #if the preference doesnt exist
 	if newPreference is None:
