@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '40m3%0xq-agn_+2^-v9#bl%_deg0)g2^+b*l*sefk)j+tky1oo'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -131,7 +131,7 @@ try:
     from .local_settings import *
 except ImportError:
     pass
-    
+
 # Static asset configuration
 import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
