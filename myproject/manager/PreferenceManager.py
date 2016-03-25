@@ -20,17 +20,19 @@ def createPreference(request):
 	newPreference = None
 	existing = Preference.objects.filter(user=email).filter(preference=preference)
 
+#check if the preference exists for the user 
 	if len(existing) > 0:
 		# User Exists!
-		user = existing[0]
+		newPreference = existing[0]
 		errorMessage = "Error! Preference with this email already exists."
 
-		return HttpResponse(json.dumps({'success': False, "error":errorMessage, 'existing':existing}), content_type="application/json")
+		return HttpResponse(json.dumps({'success': False, "error":errorMessage, 'existing':true}), content_type="application/json")
 
+#if the preference doesnt exist
 	if newPreference is None:
 		newPreference = Preference()
 
-	#use usermanager method to get user we want
+	#get the user we want to insert for
 	user = UserManager.getActualUser(email)
 
 	newPreference.preference = preference
@@ -40,6 +42,7 @@ def createPreference(request):
 	newPreference.save()
 
 	response_data = newPreference.getResponseData()
+	response_data["existing"] = True
 
 	return HttpResponse(json.dumps(response_data), content_type="application/json")
 

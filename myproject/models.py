@@ -51,11 +51,13 @@ class Preference(models.Model):
 	def __unicode__(self):
 		return self.preference
 
-	def getResponseData(self):
+	def getResponseData(user):
 		response_data = {}
 		response_data["id"] = self.id
 		response_data["preference"] = self.preference
-		response_data["user"] = self.user
+		response_data["first_name"] = user.first_name
+		response_data["last_name"] = user.last_name
+		response_data["email"] = user.email
 		return response_data
 
 	# """
