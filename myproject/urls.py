@@ -25,5 +25,6 @@ urlpatterns = [
     url(r'^api/users/(?P<user_id>\d*)/$', UserManager.userRequest),
     url(r'^api/users/(?P<user_email>[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)/$', UserManager.userRequest),
     url(r'^api/preferences/(?P<user_email>[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)/$', PreferenceManager.preferenceRequest  ),
+    url(r'^api/preferences/(?P<user_email>[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)/lucky/$', PreferenceManager.randomPreference  ),
     url(r'^api/preferences/$', PreferenceManager.preferenceRequest )
 ]

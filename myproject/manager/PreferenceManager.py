@@ -4,6 +4,7 @@ from django.http import HttpResponse
 
 from ..models import Preference
 import UserManager
+import random
 
 
 @csrf_exempt
@@ -54,6 +55,7 @@ def createPreference(request):
 @csrf_exempt
 def getPreferences(request, user_email):
 	response_data = {}
+	response_data["success"] = False
 	
 	#use usermanager method to get user we want
 	user = UserManager.getActualUser(user_email)
@@ -63,16 +65,43 @@ def getPreferences(request, user_email):
 		
 		
 		response_data["preferences"] = prefs
-		response_data["success"] = True
+		
 
 		if len(prefs)>0:
-			#user = users[0]
-			#response_data = user.getResponseData()
+			response_data["success"] = True
 			return HttpResponse(json.dumps(response_data), content_type="application/json")
 		else:
 			errorMessage = "Error! This user has no prefererences."
 			response_data = {'success': False, "error":errorMessage}
 
 	return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+@csrf_exempt
+def randomPreference(request, user_email):
+	
+	#use usermanager method to get user we want
+	user = UserManager.getActualUser(user_email)
+	if user:
+		prefs = Preference.objects.filter(user=user)
+		prefs = list(prefs)
+
+	if(len(prefs)>0):
+		randomPref = random.randrange(0, len(prefs), 1)
+
+		preference = Preference()
+		preference = prefs[randomPref]
+		response_data = preference.getResponseData()
+		response_data["success"] = True
+		return HttpResponse(json.dumps(response_data), content_type="application/json")
+	else:
+		response_data = {}
+		errorMessage = "Error! This user has no prefererences."
+		response_data = {'success': False, "error":errorMessage}
+
+	return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+
+
+
 
 
