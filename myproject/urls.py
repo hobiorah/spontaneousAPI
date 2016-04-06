@@ -17,6 +17,8 @@ from django.conf.urls import url
 from django.contrib import admin
 from manager import UserManager
 from manager import PreferenceManager
+from manager import VisitManager
+
 
 
 urlpatterns = [
@@ -26,5 +28,9 @@ urlpatterns = [
     url(r'^api/users/(?P<user_email>[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)/$', UserManager.userRequest),
     url(r'^api/preferences/(?P<user_email>[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)/$', PreferenceManager.preferenceRequest  ),
     url(r'^api/preferences/(?P<user_email>[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)/lucky/$', PreferenceManager.randomPreference  ),
-    url(r'^api/preferences/$', PreferenceManager.preferenceRequest )
+    url(r'^api/preferences/$', PreferenceManager.preferenceRequest ),
+    url(r'^api/visit/$', VisitManager.visitRequest ),
+    url(r'^api/visit/(?P<user_email>[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)/(?P<place_id>[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};:\\|,.<>\/?]*)/$', VisitManager.visitable ),
+    url(r'^api/visit/favorite$', VisitManager.createFavorite ),
+    url(r'^api/visit/(?P<user_email>[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)/favorite$', VisitManager.getFavorites ),
 ]

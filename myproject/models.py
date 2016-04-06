@@ -66,3 +66,29 @@ class Preference(models.Model):
 
 	def __cmp__(self, other):
 		return self.id - other.id
+
+class Favorite(models.Model):
+	placeid = models.CharField(max_length=50)
+	user = models.ForeignKey('DPUser',models.SET_NULL,  blank=True, null=True,)
+	
+
+	def getResponseData(self):
+		response_data = {}
+		response_data["place_id"] = self.placeid
+		response_data["user"] = self.user.getResponseData();
+		return response_data
+
+class Visited(models.Model):
+	placeid = models.CharField(max_length=50)
+	visit_date = models.DateField(auto_now=True, auto_now_add=False)
+	user = models.ForeignKey('DPUser',models.SET_NULL,  blank=True, null=True,)
+
+	def getResponseData(self):
+		response_data = {}
+		response_data["place_id"] = self.placeid
+		response_data["user"] = self.user.getResponseData();
+		response_data["visit_date"] = str(self.visit_date);
+		return response_data
+
+
+
